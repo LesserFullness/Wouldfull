@@ -8,6 +8,6 @@
  */
 
 export default {
-    loveTime: Date.UTC(2022, 02, 21), // 恋爱时间
+    loveTime: Date.UTC(2022, 2, 21), // 恋爱时间
     giteeName: "N0ts" // Gitee 账号名
 };
