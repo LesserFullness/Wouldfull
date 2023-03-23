@@ -40,17 +40,11 @@ let diffSeconds = Math.floor(
 new Vue({
     el: "#app",
     data: {
-        tabState: false, // 侧边栏菜单是否展开
-        menuTabState: false, // 侧边栏顶部菜单是否展开
-        pagesTabState: false, // 侧边栏页面菜单是否展开
-        pageIndex: 0, // 当前页面索引
+
         timeText: "", // 计时文案
-        giteeData: null, // 码云仓库数据
+
     },
-    created() {
-        // 获取 Gitee 仓库信息
-        this.getGiteeData();
-    },
+
     mounted() {
         // 计时器开始
         setInterval(() => {
@@ -63,42 +57,7 @@ new Vue({
             new Viewer(item);
         });
     },
-    methods: {
-        /**
-         * 侧边菜单打开关闭
-         */
-        changeTab() {
-            this.tabState = !this.tabState;
-        },
 
-        /**
-         * 侧边栏顶部菜单打开关闭
-         */
-        changeMenuTab() {
-            this.menuTabState = !this.menuTabState;
-        },
-
-        /**
-         * 侧边栏页面菜单打开关闭
-         */
-        changePagesTab() {
-            this.pagesTabState = !this.pagesTabState;
-        },
-
-        /**
-         * 侧边菜单收起
-         */
-        closeBlackWindow() {
-            this.tabState = this.menuTabState = this.pagesTabState = false;
-        },
-
-        /**
-         * 切换页面
-         * @param {*} i 索引
-         */
-        changePageIndex(i) {
-            this.pageIndex = i;
-        },
 
         /**
          * 时差计算
@@ -124,13 +83,6 @@ new Vue({
             this.timeText = `我们已经在一起 ${diffYears} 年 ${diffDays} 天 ${diffHours} 小时 ${diffMinutes} 分钟 ${diffSeconds} 秒啦！`;
         },
 
-        /**
-         * 获取 Gitee 仓库信息
-         */
-        getGiteeData() {
-            axios.get(`https://gitee.com/api/v5/users/${c.giteeName}/repos?type=personal&sort=updated&page=1&per_page=100`).then(res => {
-                this.giteeData = res.data;
-            });
-        },
+
     }
 });
