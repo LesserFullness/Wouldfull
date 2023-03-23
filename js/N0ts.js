@@ -64,7 +64,7 @@ new Vue({
             new Viewer(item);
         });
     },
-
+    methods: {
 
         /**
          * 时差计算
@@ -91,5 +91,5 @@ new Vue({
         },
 
 
-    
+    }
 });
