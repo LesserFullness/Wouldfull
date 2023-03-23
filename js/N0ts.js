@@ -10,8 +10,15 @@
 import c from "./config.js";
 
 window.onload = function () {
-    document.querySelector(".load").style.display = "none";
-    document.querySelector(".Box").classList.add("BoxLoad");
+    var loadElement = document.querySelector(".load");
+    if (loadElement) {
+        loadElement.style.display = "none";
+    }
+    
+    var boxElement = document.querySelector(".Box");
+    if (boxElement) {
+        boxElement.classList.add("BoxLoad");
+    }
 };
 
 let seconds = 1000;
