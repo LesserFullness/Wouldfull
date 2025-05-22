@@ -1,110 +1,185 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
-    <title>人生小满</title>
-    <meta name="description"
-        content="道隐无名">
-    <meta name="keywords" content="小满">
-    <link rel="stylesheet" type="text/css" href="./css/FiraCode.css">
-    <link rel="stylesheet" type="text/css" href="./css/nutssss.css">
-    <link rel="icon" href="./favicon.ico">
+  <meta charset="UTF-8">
+  <title>成长轨迹</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- 引入必要的库 -->
+  <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 </head>
-
 <body>
-    <div id="box">
-        <!-- 个人资料卡片 -->
-        <div class="meBox">
-            <!-- 头像 -->
-            <div class="headPhoto"></div>
-            <!-- 介绍 -->
-            <div class="meBox-title">
-                <p>小满</p>
-                <div class="fg"></div>
-            </div>
-            <div class="meBox-text">
-                <p>四月中，小满者，</p>
-                <p>物致于此小得盈满。</p>
-                <p>花未全开月未圆，半山微醉尽余欢。</p>
-                <p>何须多虑盈亏事，终归小满胜万全。</p>
-            </div>
-            <!-- 两个按钮 -->
-            <div class="meBox-Button">
-                <a href="https://wouldfull.eu.org/">主页</a>
-                <a href="/README.md">关于</a>
-            </div>
-        </div>
 
-        <!-- 伪终端介绍 -->
-        <div id="cmdBox">
-            <!-- 第一个终端 -->
-            <div class="cmd">
-                <!-- 三个按钮 -->
-                <div class="click">
-                    <div class="red"></div>
-                    <div class="yellow"></div>
-                    <div class="green"></div>
-                </div>
-                <!-- 顶部标题 -->
-                <div class="title">
-                    <span>lovezxy - bash</span>
-                </div>
-                <!-- 终端内文字 -->
-                <div class="cmdText">
-                    <span style="color: rgb(0, 190, 0);">root@yong</span>
-                    <span style="color: blue;">~</span>
-                    <span style="color: rgb(39, 39, 39);">./tianqi.sh</span>
-                    <br />
-                    <iframe scrolling="no" src="https://tianqiapi.com/api.php?style=tb&skin=pitaya" frameborder="0"
-                        width="350" height="24" allowtransparency="true"></iframe>
-                    <br />
-                    <span style="color: rgb(0, 190, 0);">root@yong</span>
-                    <span style="color: blue;">~</span>
-                    <span style="color: rgb(39, 39, 39);">cat /我和她.txt</span>
-                    <p>2022-02-21 与君初相识</p>
-                    <p>截止现在</p>
-                    <p id="demo"></p>
-                    <script>
-                    var countDownDate = new Date("Feb 21, 2022 21:40:00").getTime();
-                    var x = setInterval(function() {
-                    var now = new Date().getTime();
-                    var distance = now - countDownDate;
-                    var years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
-                    var days = Math.floor((distance % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
-                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    document.getElementById("demo").innerHTML = " 我们已经在一起 " + years + " 年 " + days + " 天 " + hours + " 小时 "
-  + minutes + " 分钟啦 ";  
-}, 1000);
-                    </script>
-                    <p>有你的每一天都如糖果一样甜</p>
+  <h1 style="text-align:center;">📅 知周的时间轴</h1>
 
-                    <span style="color: rgb(0, 190, 0);">root@yong</span>
-                    <span style="color: blue;">~</span>
-                    <span style="color: rgb(39, 39, 39);">./links.sh</span>
-                    <p><a href="https://onedrive.wouldfull.eu.org">我的网盘</a></p>
-                    <p><a href="https://ai.wouldfull.eu.org">AI助手</a></p>
-                    <span style="color: rgb(0, 190, 0);">root@yong</span>
-                    <span style="color: blue;">~</span>
-                    <span style="color: rgb(39, 39, 39);">sudo rm -rf /过去的自己/*</span>
-                </div>
+  <!-- 🔍 搜索栏 -->
+  <div style="text-align:center; margin-bottom: 20px;">
+    <input type="text" id="searchInput" placeholder="🔍 搜索关键字..." style="padding: 0.5rem; width: 60%; max-width: 400px;">
+  </div>
+
+  <!-- ➕ 添加事件表单 -->
+  <div style="text-align:center; margin-bottom: 30px;">
+    <h2>➕ 添加新事件</h2>
+    <input type="text" id="dateInput" placeholder="日期（如 2025年5月20日）" style="margin: 5px; padding: 5px; width: 250px;"><br>
+    <input type="text" id="textInput" placeholder="事件描述" style="margin: 5px; padding: 5px; width: 250px;"><br>
+    <input type="file" id="imageInput" accept="image/*" style="margin: 5px; padding: 5px; width: 250px;"><br>
+    <button id="addBtn" style="padding: 8px 16px;">添加事件</button>
+  </div>
+
+  <!-- 📄 导出按钮 -->
+  <div style="text-align:center; margin-bottom: 30px;">
+    <button id="exportBtn" style="padding: 8px 16px;">导出为 PDF</button>
+  </div>
+
+  <div class="timeline" id="timeline"></div>
+
+  <script>
+    let allEvents = [];
+
+    function parseDate(dateStr) {
+      const match = dateStr.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
+      if (match) {
+        const [_, year, month, day] = match;
+        return new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`);
+      }
+      return new Date(dateStr);
+    }
+
+    function getLunarDate(dateStr) {
+      const match = dateStr.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
+      if (match) {
+        const [_, year, month, day] = match;
+        const solar = Solar.fromYmd(parseInt(year), parseInt(month), parseInt(day));
+        return solar.getLunar().toString();
+      }
+      return '';
+    }
+
+    function renderTimeline(data) {
+      const container = document.getElementById("timeline");
+      container.innerHTML = '';
+
+      const sorted = [...data].sort((a, b) => parseDate(b.date) - parseDate(a.date));
+
+      const grouped = sorted.reduce((acc, item) => {
+        const year = item.date.substring(0, 4);
+        if (!acc[year]) acc[year] = [];
+        acc[year].push(item);
+        return acc;
+      }, {});
+
+      const years = Object.keys(grouped).sort((a, b) => b - a);
+
+      let count = 0;
+      years.forEach(year => {
+        container.insertAdjacentHTML('beforeend', `<h2 class="year-header">${year}</h2>`);
+        grouped[year].forEach(item => {
+          const side = count++ % 2 === 0 ? "left" : "right";
+          const lunar = getLunarDate(item.date);
+          const html = `
+            <div class="entry ${side}">
+              <h3>${item.date}</h3>
+              <p>${item.text}</p>
+              ${lunar ? `<p>农历：${lunar}</p>` : ''}
+              ${item.image ? `<img src="${item.image}" alt="${item.date}">` : ''}
             </div>
-            
-        </div>
-    </div>
+          `;
+          container.insertAdjacentHTML("beforeend", html);
+        });
+      });
+    }
 
-    <!-- 页脚 -->
-    <div id="footer">
-        <p>© 2020 NUTSSSS | <a href="http://beian.miit.gov.cn">湘ICP备18015792号</a></p>
-        <p>THEME MADE BY <a href="https://nutssss.cn/">Nutssss</a></p>
-    </div>
-    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/viewerjs/1.10.1/viewer.min.js"></script>
-    <script src="./js/N0ts.js" type="module"></script>
+    function addSearch(data) {
+      const input = document.getElementById("searchInput");
+      input.addEventListener("input", () => {
+        const keyword = input.value.toLowerCase();
+        const filtered = data.filter(item =>
+          item.date.includes(keyword) ||
+          item.text.toLowerCase().includes(keyword)
+        );
+        renderTimeline(filtered);
+      });
+    }
+
+    function setupAddEvent() {
+      const addBtn = document.getElementById("addBtn");
+      addBtn.addEventListener("click", () => {
+        const date = document.getElementById("dateInput").value.trim();
+        const text = document.getElementById("textInput").value.trim();
+        const imageFile = document.getElementById("imageInput").files[0];
+
+        if (!date || !text) {
+          alert("请输入日期和描述！");
+          return;
+        }
+
+        if (imageFile) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const newEvent = { date, text, image: e.target.result };
+            allEvents.push(newEvent);
+            const userEvents = loadLocalEvents();
+            userEvents.push(newEvent);
+            saveLocalEvents(userEvents);
+            renderTimeline(allEvents);
+          };
+          reader.readAsDataURL(imageFile);
+        } else {
+          const newEvent = { date, text, image: '' };
+          allEvents.push(newEvent);
+          const userEvents = loadLocalEvents();
+          userEvents.push(newEvent);
+          saveLocalEvents(userEvents);
+          renderTimeline(allEvents);
+        }
+      });
+    }
+
+    function loadLocalEvents() {
+      const local = localStorage.getItem("timelineEvents");
+      return local ? JSON.parse(local) : [];
+    }
+
+    function saveLocalEvents(events) {
+      localStorage.setItem("timelineEvents", JSON.stringify(events));
+    }
+
+    function setupExport() {
+      const exportBtn = document.getElementById("exportBtn");
+      exportBtn.addEventListener("click", () => {
+        const { jsPDF } = window.jspdf;
+        html2canvas(document.getElementById("timeline")).then(canvas => {
+          const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF('p', 'mm', 'a4');
+          const imgProps = pdf.getImageProperties(imgData);
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+          pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+          pdf.save("timeline.pdf");
+        });
+      });
+    }
+
+    async function init() {
+      let serverData = [];
+      try {
+        const res = await fetch('data.json');
+        serverData = await res.json();
+      } catch (e) {
+        console.warn("未能加载 data.json，使用空数据。");
+      }
+      const userData = loadLocalEvents();
+      allEvents = [...serverData, ...userData];
+      renderTimeline(allEvents);
+      addSearch(allEvents);
+      setupAddEvent();
+      setupExport();
+    }
+
+    init();
+
+  </script>
+
 </body>
-
 </html>
